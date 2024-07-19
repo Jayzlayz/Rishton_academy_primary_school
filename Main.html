@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Information</title>
+</head>
+<body>
+    <header>
+        <h1>Rishton Acadmey Managment system</h1>
+    </header>
+    <div class="form-container">
+        <!-- Pupil Form -->
+        <section class="form-section">
+            <h2>Submit Pupil</h2>
+            <form id="pupilForm" action="add_pupil.php" method="post">
+                <label for="pupil_name">Pupil Name:</label>
+                <input type="text" id="pupil_name" name="pupil_name" required placeholder="Enter pupil name">
+                
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required placeholder="Enter address">
+                
+                <label for="medical_information">Medical Information:</label>
+                <textarea id="medical_information" name="medical_information" placeholder="Enter medical information"></textarea>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email">
+                
+                <label for="class_id">Class ID:</label>
+                <input type="number" id="class_id" name="class_id" required placeholder="Enter class ID">
+                
+                <button type="submit">Submit Pupil</button>
+            </form>
+        </section>
+
+        <!-- Parent Form -->
+        <section class="form-section">
+            <h2>Enter Parent Information</h2>
+            <form id="parentForm" action="add_parent.php" method="post">
+                <label for="parent_name">Parent Name:</label>
+                <input type="text" id="parent_name" name="parent_name" required placeholder="Enter parent name">
+                
+                <label for="parent_address">Address:</label>
+                <input type="text" id="parent_address" name="parent_address" required placeholder="Enter address">
+                
+                <label for="parent_email">Email:</label>
+                <input type="email" id="parent_email" name="parent_email" required placeholder="Enter email">
+                
+                <label for="parent_phone">Phone:</label>
+                <input type="text" id="parent_phone" name="parent_phone" required placeholder="Enter phone number">
+                
+                <button type="submit">Submit Parent</button>
+            </form>
+        </section>
+
+        <!-- Teacher Form -->
+        <section class="form-section">
+            <h2>Enter Teacher Information</h2>
+            <form id="teacherForm" action="add_teachers.php" method="post">
+                <label for="teacher_name">Teacher Name:</label>
+                <input type="text" id="teacher_name" name="teacher_name" required placeholder="Enter teacher name">
+                
+                <label for="teacher_address">Address:</label>
+                <input type="text" id="teacher_address" name="teacher_address" required placeholder="Enter address">
+                
+                <label for="teacher_phone">Phone:</label>
+                <input type="text" id="teacher_phone" name="teacher_phone" required placeholder="Enter phone number">
+                
+                <label for="teacher_salary">Salary:</label>
+                <input type="number" id="teacher_salary" name="teacher_salary" required placeholder="Enter salary">
+                
+                <label for="teacher_bgcheck">Background Check:</label>
+                <input type="text" id="teacher_bgcheck" name="teacher_bgcheck" required placeholder="Enter background check details">
+                
+                <button type="submit">Submit Teacher</button>
+            </form>
+        </section>
+
+        <!-- Class Form -->
+        <section class="form-section">
+            <h2>Enter Class Information</h2>
+            <form id="classForm" action="add_classes.php" method="post">
+                <label for="class_name">Class Name:</label>
+                <input type="text" id="class_name" name="class_name" required placeholder="Enter class name">
+                
+                <label for="class_capacity">Class Capacity:</label>
+                <input type="number" id="class_capacity" name="class_capacity" required placeholder="Enter class capacity">
+                
+                <button type="submit">Submit Class</button>
+            </form>
+        </section>
+
+        <!-- Attendance Form -->
+        <section class="form-section">
+            <h2>Enter Attendance Information</h2>
+            <form id="attendanceForm" action="add_attendance.php" method="post">
+                <label for="pupil_id">Pupil ID:</label>
+                <input type="number" id="pupil_id" name="pupil_id" required placeholder="Enter pupil ID">
+                
+                <label for="attendance_date">Date:</label>
+                <input type="date" id="attendance_date" name="attendance_date" required>
+                
+                <label for="status">Status:</label>
+                <input type="text" id="status" name="status" required placeholder="Enter status">
+                
+                <button type="submit">Submit Attendance</button>
+            </form>
+        </section>
+
+        <!-- Salary Form -->
+        <section class="form-section">
+            <h2>Enter Salary Information</h2>
+            <form id="salaryForm" action="add_salaries.php" method="post">
+                <label for="teacher_id">Teacher ID:</label>
+                <input type="number" id="teacher_id" name="teacher_id" required placeholder="Enter teacher ID">
+                
+                <label for="salary_amount">Amount:</label>
+                <input type="number" id="salary_amount" name="salary_amount" required placeholder="Enter amount">
+                
+                <label for="salary_date">Date:</label>
+                <input type="date" id="salary_date" name="salary_date" required>
+                
+                <button type="submit">Submit Salary</button>
+            </form>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Rishton Academy Management System</p>
+    </footer>
+    
+    <script>
+        // Function to format date input
+        function formatDate(input) {
+            const date = new Date(input.value);
+            if (!isNaN(date.getTime())) {
+                input.value = date.toISOString().split('T')[0];
+            }
+        }
+
+        // Validate forms
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            form.addEventListener('submit', function(event) {
+                const inputs = form.querySelectorAll('input[required], textarea[required]');
+                let valid = true;
+
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        valid = false;
+                        input.style.borderColor = 'red';
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+
+                if (!valid) {
+                    event.preventDefault();
+                    alert('Please fill all required fields.');
+                }
+            });
+        }
+
+        // Format date fields on form submission
+        document.getElementById('attendance_date').addEventListener('change', function() {
+            formatDate(this);
+        });
+
+        document.getElementById('salary_date').addEventListener('change', function() {
+            formatDate(this);
+        });
+
+        // Apply validation to each form
+        validateForm('pupilForm');
+        validateForm('parentForm');
+        validateForm('teacherForm');
+        validateForm('classForm');
+        validateForm('attendanceForm');
+        validateForm('salaryForm');
+    </script>
+</body>
+</html>
